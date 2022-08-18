@@ -1,0 +1,9 @@
+.about {
+    text-align: center;
+    color: #B00100;
+}
+
+.about-cat {
+    display: flex;
+    justify-content: center;
+}

@@ -3,4 +3,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root 'pages#home'
+  get 'about', to: 'pages#about'
+  get 'articles', to: 'articles#show'
+  get 'articles/', to: 'articles#index'
+  resources :articles #only: [:...] # searching for all routes, only specifies the necessary route
+
 end

@@ -109,6 +109,16 @@ So, when we'll try to create an article without a title by `article = Article.ne
 To see an error: `article.errors.full_messages`. ["Title can't be blank"] is returned.
 
 Let's go further and validate description. Write `validates :description, presence: true` in the Article class.
+We can also specify the length of the field by using `length: {mimimum: , maximum: }`
+To save these changes to the model, use `reload!`
+
+**To see other validation methods, use** https://guides.rubyonrails.org/active_record_validations.html
+
+<h1>Route, action, view</h1>
+
+By writing `resources :articles` in routes.rb file and using `rails routes --expanded` in the 
+console (an ordinary console, not rails), we'll see all routes and controllers in console.
+
 
 
 
