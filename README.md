@@ -23,6 +23,9 @@ Things you may want to cover:
 
 * ...
 
+<h1> Working with DB </h1>
+
+<h2>CRUD</h2>
 
 To create migration of data:
 `rails generate migration [name]`
@@ -74,8 +77,48 @@ Save it by `article.save`
 Thus, the SQL transaction is created and the 2nd article is in the db now.
 Use `Article.all` to see all articles.
 
-And we use can use constructor: ` Article.new(title: 'Third article', description: 'The info about the 3rd article')`
+And we use can use constructor: `Article.new(title: 'Third article', description: 'The info about the 3rd article')`
 and then save to db `article.save`
+
+_____
+**READ AND UPDATE A RECORD**
+
+Let's find a record: `Article.find(index)` and find an element with index 2.
+
+Display the first article: `Article.first` and the last article: `Article.last`.
+It is also much better to USE INSTANCE OF THE CLASS.
+
+To update an article we use the instance of the class and a record field.
+In essence, let's change the third article.
+First, find it by `article = Article.find(3)`. Then, update it by `article.description = 'hehehehehehe`.
+Save it to the database: `article.save`.
+
+______
+**DELETE A RECORD**
+
+Let's destroy the third article by `article.destroy`. The article is returned, but when you enter `Article.all`, there is
+no article 3. There is no need to save anything.
+
+<h2> Validation of records </h2>
+By now, we can save empty records. This is not okay. There are no restrictions in article.rb file,
+so we'll create them. First, we'll make sure that title of the article is necessary to fill in by 
+`validates :title, presence: true` in the Article class in article.rb. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
