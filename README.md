@@ -59,7 +59,7 @@ For now it is [].
 To create a new record: `Article.create(title: 'first_article', description: 'Info about first article')`
 The record is created. 
 
-**THIS IS GOOD** But, a preferrable way to create a record is by making an 
+**THIS IS GOOD** But, a preferable way to create a record is by making an 
 instance of the class. 
 `article = Article.new`
 
@@ -71,7 +71,7 @@ But we can fill the fields like:   `article.title = 'The second article'` and
 So, the result is `#<Article:0x000001f0b685c2c8 id: nil, title: "The second article", description: "The info about the second article", created_at: nil, updated_at: ni
 l>`
 
-Id is still nil. This shows us that that article is now IN THE DB TABLE.
+Id is still nil. This shows us that that article is not IN THE DB TABLE.
 Once it is in the db table, id is filled automatically.
 Save it by `article.save`
 Thus, the SQL transaction is created and the 2nd article is in the db now.
@@ -101,8 +101,16 @@ no article 3. There is no need to save anything.
 
 <h2> Validation of records </h2>
 By now, we can save empty records. This is not okay. There are no restrictions in article.rb file,
-so we'll create them. First, we'll make sure that title of the article is necessary to fill in by 
+so we'll create them. First, we'll make sure that title of the article is necessary to fill in by
+
 `validates :title, presence: true` in the Article class in article.rb. 
+To save these changes to the model, use `reload!`
+So, when we'll try to create an article without a title by `article = Article.new` and use `article.save`, `false` will be returned.
+To see an error: `article.errors.full_messages`. ["Title can't be blank"] is returned.
+
+Let's go further and validate description. Write `validates :description, presence: true` in the Article class.
+
+
 
 
 
