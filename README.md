@@ -23,6 +23,24 @@ Things you may want to cover:
 
 * ...
 
+<h1> Rails syntax </h1>
+
+When you want to **display data**, use `<%= %>`
+
+When you **don't want to display data, just code**, use `<% %>`
+
+Ex: 
+
+    <% @article.each do |article| %>
+
+    <tr>
+        <td class="title"> <%= article.title %></td>
+    
+        <td class="desc"> <%= article.description %></td>
+    </tr>
+    <% end %>
+
+
 <h1> Working with DB </h1>
 
 <h2>CRUD</h2>
@@ -118,6 +136,35 @@ To save these changes to the model, use `reload!`
 
 By writing `resources :articles` in routes.rb file and using `rails routes --expanded` in the 
 console (an ordinary console, not rails), we'll see all routes and controllers in console.
+
+Don't forget to specify exactly your URI, bec when using `resources :articles`, Rails create
+a whole bunch of unnecessary routes, so, use `resources :articles, only: [:..., :...]` to
+specify what routes will be used in your application.
+
+`resources :articles, only: [:show, :index, :new, :create]` =>
+
+1. `/articles` to show all articles
+
+2. `/articles/1` to show the first article
+
+3. `/articles/new` to create a new article
+
+4. `/articles/create` to 
+
+We can render the new article to the page. But this is only render, it is not
+saved in the db.
+When creating a new article, nothing might happen and a new article is not saved.
+This is because we don't render it in `create` method in Articles controller. 
+By using `render plain: params[:article]`, we'll specify what is going to be rendered: a new article.
+So, on `'/articles'`, a new article will be returned: `{"title"=>"eweqweqwe", "description"=>"qweqeqweqwewqe"}`
+**But, it only renders by the browser, the new article is NOT saved yet**.
+
+Sometimes, we might encounter a problem with turbo. 
+I had a problem with rendering a new article. It didn't return a new article.
+The solution for it is to add `data: { turbo: false }` in the form.
+The form in in new.html.erb file.
+
+
 
 
 

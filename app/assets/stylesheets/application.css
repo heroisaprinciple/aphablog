@@ -13,8 +13,12 @@
  *= require_tree .
  *= require_self
  */
-
+* {
+    font-family: 'Helvetica', sans-serif;
+}
 .intro {
     color: darkcyan;
+    font-weight: 900;
 }
+
 

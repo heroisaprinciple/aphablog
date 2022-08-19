@@ -1,0 +1,27 @@
+.gifcat--img {
+    display: flex;
+    justify-content: right;
+}
+
+.h1--index {
+    font-weight: 900;
+}
+
+.articles--table thead {
+    color: lightsalmon;
+    font-weight: 900;
+}
+
+.articles--table td, .articles--table th {
+    padding: 0 15px;
+    text-align: left;
+}
+
+.articles--table .title {
+    color: indianred;
+    font-weight: 200;
+}
+
+.articles--table .desc {
+    color: darkseagreen;
+}

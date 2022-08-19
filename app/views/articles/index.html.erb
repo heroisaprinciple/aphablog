@@ -1,4 +1,28 @@
-<h1 class="showing-details">Showing details</h1>
+<h1 class="h1--index">The full listing of articles: </h1>
 
-<p class="title">Title: <%= @article.title %></p>
-<p class="description">Description: <%= @article.description %></p>
+<div class="articles--table">
+  <table>
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @article.each do |article| %>
+      <tr>
+        <td class="title"> <%= article.title %></td>
+        <td class="desc"> <%= article.description %></td>
+        <td> </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="gifcat--img">
+  <img src="https://imgs.search.brave.com/HIOP_ok7rEDLaGTxvz6_6HRfkmXvHI9RTxMWIkzecHs/rs:fit:370:300:1/g:ce/aHR0cHM6Ly8zLmJw/LmJsb2dzcG90LmNv/bS8tZm0wQ2c1V0Zz/eTgvV0Y2WVdKeVV2/dUkvQUFBQUFBQUZv/ZjAvblJzcTNKTGZ3/TndQcVpBMjBmUERG/QUg4YU9VRkxIN25B/Q0xjQi9zMTYwMC9B/VzM1NjIzNF8wNC5n/aWY.gif"/>
+</div>
