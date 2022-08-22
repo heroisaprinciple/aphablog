@@ -1,5 +1,15 @@
 <h1 class="h1--new--article">Creating a new article...</h1>
 
+<!-- error displaying messages (when saving @article to db is unsuccessful) -->
+<% if @article.errors.any? %>
+  <h1> The following errors prevented us from saving data in DB: </h1>
+  <ul>
+    <% @article.errors.full_messages.each do |err| %>
+      <li> <%= err %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <!-- the form scope is a an article model, url and method included-->
 <%= form_with scope: :article, url: '/articles', method: :post, data: { turbo: false } do |form| %>
 

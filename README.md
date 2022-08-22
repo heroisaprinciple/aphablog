@@ -91,12 +91,12 @@ l>`
 
 Id is still nil. This shows us that that article is not IN THE DB TABLE.
 Once it is in the db table, id is filled automatically.
-Save it by `article.save`
+Save it by `article.save!`
 Thus, the SQL transaction is created and the 2nd article is in the db now.
 Use `Article.all` to see all articles.
 
 And we use can use constructor: `Article.new(title: 'Third article', description: 'The info about the 3rd article')`
-and then save to db `article.save`
+and then save to db `article.save!`
 
 _____
 **READ AND UPDATE A RECORD**
@@ -109,7 +109,7 @@ It is also much better to USE INSTANCE OF THE CLASS.
 To update an article we use the instance of the class and a record field.
 In essence, let's change the third article.
 First, find it by `article = Article.find(3)`. Then, update it by `article.description = 'hehehehehehe`.
-Save it to the database: `article.save`.
+Save it to the database: `article.save!`.
 
 ______
 **DELETE A RECORD**
@@ -149,8 +149,6 @@ specify what routes will be used in your application.
 
 3. `/articles/new` to create a new article
 
-4. `/articles/create` to 
-
 We can render the new article to the page. But this is only render, it is not
 saved in the db.
 When creating a new article, nothing might happen and a new article is not saved.
@@ -163,6 +161,27 @@ Sometimes, we might encounter a problem with turbo.
 I had a problem with rendering a new article. It didn't return a new article.
 The solution for it is to add `data: { turbo: false }` in the form.
 The form in in new.html.erb file.
+
+To save to db, we need to use following in the articles controller:
+
+`:article` is our db model
+
+`@article = Article.new(params.require(:article).permit(:id, :title, :description))`
+
+`@article.save!`
+
+`redirect_to article_path(@article)`
+
+Thus, we'll create a new article object from params, which permits fields. 
+To redirect to /articles/id, use `rails routes --expanded`, find `/articles/:id` URI and method GET
+PREFIX here is to access: `article` (which is a prefix)`_path` (which means path), rails will 
+extract `id` from `@article` class instance. 
+
+
+
+
+    
+
 
 
 
