@@ -181,13 +181,13 @@ To redirect to /articles/id, use `rails routes --expanded`, find `/articles/:id`
 PREFIX here is to access: `article` (which is a prefix)`_path` (which means path), rails will 
 extract `id` from `@article` class instance. 
 
-**Edit an article**
+**EDIT AN ARTICLE**
 
 Let's see what `/articles/:id/edit` has. It is an error page, saying there is
 no template for this page. Let's create `edit.html.rb` then. We want to update
 the article, so we need the form to do this. 
 But it is not the form to create. In case of editing form, we want to display all existing info about the
-article. So, instead of ordinary one, we'll use `<% form_with(model: @article, method: :post) do |form|  %>`
+article. 
 Why using `@article` instance, not the particular model? We want to show info about the particular 
 article and change the info of a particular info.
 
@@ -200,6 +200,33 @@ then, click on the button. Nothing happens. Why? Fill `update` action.
 
 Then, we'll update it (means update in db) by finding a particular article, updating it
 and redirecting to the `/article/:id` in `update` method.
+
+**DELETING AN ARTICLE**
+
+We'll have a link, which if clicked, the entity will be deleted.
+Look at `index.html.erb` file. We'll embed the link:
+`<%= link_to 'Delete', 
+article_path(article.id), data: {
+turbo_method: :delete,
+turbo_confirm: "Are you sure?"
+} %>`
+
+**Notice that without `turbo_method` and `turbo_confirm` the entity won't be deleted.**
+`method: :delete` really doesn't work. 
+It needs to be `turbo_method: :delete` if you are using Rails default stack. 
+
+See https://guides.rubyonrails.org/getting_started.html#deleting-an-article
+
+
+We'll delete the entity, which is found by 
+`Article.find(params[:id])`.
+
+Then, we'll redirect to our main page, which is `/articles`. 
+
+
+
+
+
 
 
 

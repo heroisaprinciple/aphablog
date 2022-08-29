@@ -67,4 +67,12 @@ class ArticlesController < ApplicationController
 
     end
   end
+
+  def destroy
+    #binding.break
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path, status: :see_other # '/articles' page
+
+  end
 end

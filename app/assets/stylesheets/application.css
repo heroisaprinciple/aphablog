@@ -21,4 +21,10 @@
     font-weight: 900;
 }
 
+.nav {
+    display: flex;
+    justify-content: center;
+    color: #730E15;
+}
+
 
