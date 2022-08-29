@@ -181,6 +181,8 @@ To redirect to /articles/id, use `rails routes --expanded`, find `/articles/:id`
 PREFIX here is to access: `article` (which is a prefix)`_path` (which means path), rails will 
 extract `id` from `@article` class instance. 
 
+______________________________________________________________________
+
 **EDIT AN ARTICLE**
 
 Let's see what `/articles/:id/edit` has. It is an error page, saying there is
@@ -200,6 +202,8 @@ then, click on the button. Nothing happens. Why? Fill `update` action.
 
 Then, we'll update it (means update in db) by finding a particular article, updating it
 and redirecting to the `/article/:id` in `update` method.
+
+_______________________________________________
 
 **DELETING AN ARTICLE**
 
