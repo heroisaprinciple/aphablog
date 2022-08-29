@@ -1,0 +1,29 @@
+<h1> Editing the article </h1>
+
+<% if @article.errors.any? %>
+  <h1> The following errors prevented us from saving data in DB: </h1>
+  <ul>
+    <% @article.errors.full_messages.each do |err| %>
+      <li> <%= err %> </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<!-- in case of editing form, we want to display all existing info about the
+article-->
+<%= form_with model: @article, method: :patch do |form|  %>
+  <p>
+    <%= form.label :title %> <br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :description %> <br>
+    <%= form.text_area :description %>
+  </p>
+
+  <p>
+    <%= form.submit "enter" %>
+  </p>
+<% end %>
+

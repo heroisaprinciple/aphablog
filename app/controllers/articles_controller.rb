@@ -15,6 +15,11 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def edit
+    #binding.break # to debug, look in the console, then use `params`, then `continue` in debug console
+    @article = Article.find(params[:id])
+  end
+
   def create
     # displaying this article
 
@@ -35,6 +40,7 @@ class ArticlesController < ApplicationController
     if @article.save!
       flash[:notice] = 'Article is created successfully.' # notice is the key
       redirect_to @article
+
     else
       # rendering form again: 'new' template
       # @article is available to 'new' template.
@@ -47,5 +53,18 @@ class ArticlesController < ApplicationController
 
     puts @article
 
+  end
+
+  def update
+    #binding.break
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:id, :title, :description))
+      flash['notice'] = 'An article was updated successfully.'
+      redirect_to @article
+
+    else
+      render :edit
+
+    end
   end
 end

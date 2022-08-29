@@ -141,13 +141,17 @@ Don't forget to specify exactly your URI, bec when using `resources :articles`, 
 a whole bunch of unnecessary routes, so, use `resources :articles, only: [:..., :...]` to
 specify what routes will be used in your application.
 
-`resources :articles, only: [:show, :index, :new, :create]` =>
+`resources :articles, only: [:show, :index, :new, :create, :edit, :update, :destroy]` =>
 
 1. `/articles` to show all articles
 
 2. `/articles/1` to show the first article
 
 3. `/articles/new` to create a new article
+
+4. `/articles/1/edit` to update a first article
+
+5. `/articles` to destroy an article
 
 We can render the new article to the page. But this is only render, it is not
 saved in the db.
@@ -176,6 +180,28 @@ Thus, we'll create a new article object from params, which permits fields.
 To redirect to /articles/id, use `rails routes --expanded`, find `/articles/:id` URI and method GET
 PREFIX here is to access: `article` (which is a prefix)`_path` (which means path), rails will 
 extract `id` from `@article` class instance. 
+
+**Edit an article**
+
+Let's see what `/articles/:id/edit` has. It is an error page, saying there is
+no template for this page. Let's create `edit.html.rb` then. We want to update
+the article, so we need the form to do this. 
+But it is not the form to create. In case of editing form, we want to display all existing info about the
+article. So, instead of ordinary one, we'll use `<% form_with(model: @article, method: :post) do |form|  %>`
+Why using `@article` instance, not the particular model? We want to show info about the particular 
+article and change the info of a particular info.
+
+We still have a problem. `undefined method errors for nil:NilClass`
+This is because `@article` is not instantiated yet. 
+
+We'll instantiate the model in edit method: `@article = Article.find(params[:id])`.
+So, we'll want to update the twelfth article: `/article/12/edit`, update it, 
+then, click on the button. Nothing happens. Why? Fill `update` action.
+
+Then, we'll update it (means update in db) by finding a particular article, updating it
+and redirecting to the `/article/:id` in `update` method.
+
+
 
 
 
