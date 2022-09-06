@@ -1,9 +1,13 @@
 class ArticlesController < ApplicationController
+  # means do before the particular action
+  before_action :findArticle, only: [:show, :edit, :update, :destroy]
+
   def index
     @article = Article.all
   end
   def show
-    @article = Article.find(params[:id]) # thus, we can access a concrete article
+    # @article = Article.find(params[:id])
+    # thus, we can access a concrete article
     # like '.../articles/2' in URL, params is params, but also hashed, so id would be returned
     # in the hash format
   end
@@ -16,8 +20,8 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    #binding.break # to debug, look in the console, then use `params`, then `continue` in debug console
-    @article = Article.find(params[:id])
+    # binding.break # to debug, look in the console, then use `params`, then `continue` in debug console
+    # @article = Article.find(params[:id])
   end
 
   def create
@@ -36,8 +40,12 @@ class ArticlesController < ApplicationController
     # PREFIX here is to access: article (which is a prefix)_path (which means path)
     # rails will
     # extract `id` from `@article` class instance.
-    @article = Article.new(params.require(:article).permit(:id, :title, :description))
+    @article = Article.new(articleParams)
+    binding.break
+    @article.user_id = Article.first.user_id
+    binding.break
     if @article.save!
+      binding.break
       flash[:notice] = 'Article is created successfully.' # notice is the key
       redirect_to @article
 
@@ -56,9 +64,9 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    #binding.break
-    @article = Article.find(params[:id])
-    if @article.update(params.require(:article).permit(:id, :title, :description))
+    # binding.break
+    # @article = Article.find(params[:id])
+    if @article.update(articleParams)
       flash['notice'] = 'An article was updated successfully.'
       redirect_to @article
 
@@ -69,10 +77,19 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    #binding.break
-    @article = Article.find(params[:id])
+    # binding.break
+    # @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path, status: :see_other # '/articles' page
 
+  end
+
+  private # means that the module is only available to that controller
+  def findArticle
+    @article = Article.find(params[:id])
+  end
+
+  def articleParams
+    params.require(:article).permit(:id, :title, :description)
   end
 end

@@ -125,6 +125,7 @@ so we'll create them. First, we'll make sure that title of the article is necess
 To save these changes to the model, use `reload!`
 So, when we'll try to create an article without a title by `article = Article.new` and use `article.save`, `false` will be returned.
 To see an error: `article.errors.full_messages`. ["Title can't be blank"] is returned.
+<h3>But we'll see the error only when we save the entity to db or we validate it by`article.valid?` </h3>
 
 Let's go further and validate description. Write `validates :description, presence: true` in the Article class.
 We can also specify the length of the field by using `length: {mimimum: , maximum: }`
@@ -133,6 +134,10 @@ To save these changes to the model, use `reload!`
 **To see other validation methods, use** https://guides.rubyonrails.org/active_record_validations.html
 
 <h1>Route, action, view</h1>
+
+<h3>When a request is made from the browser, which part of the rails application receives this request?
+
+The router receives the request and routes it!</h3>
 
 By writing `resources :articles` in routes.rb file and using `rails routes --expanded` in the 
 console (an ordinary console, not rails), we'll see all routes and controllers in console.
@@ -151,7 +156,7 @@ specify what routes will be used in your application.
 
 4. `/articles/1/edit` to update a first article
 
-5. `/articles` to destroy an article
+5. `/articles/1` to destroy a first article
 
 We can render the new article to the page. But this is only render, it is not
 saved in the db.
@@ -226,6 +231,112 @@ We'll delete the entity, which is found by
 `Article.find(params[:id])`.
 
 Then, we'll redirect to our main page, which is `/articles`. 
+
+<h1>Refactoring</h1>
+
+We can extract some parts of code in .erb files as they look nasty.
+We can do this by creating partials folder and extracting 
+some code in the files there. In order Rails to understand that
+this is a partial file, use _ in the name. 
+
+___________________
+<h1>Setting up associations</h1>
+
+**Rails supports six types of associations:**
+
+belongs_to
+
+has_one
+
+has_many
+
+has_many :through
+
+has_one :through
+
+has_and_belongs_to_many
+
+<h2>One-to-many association</h2>
+
+1) The first step we' ll be doing is adding a new
+column to articles table `user_id` in a new migration file:
+   `add_column :articles, :user_id, :integer`.
+
+    So, when we run `Article.all` in rails console after
+`rails db:migrate`, all our enities will have a user_id field.
+
+
+2) We'll add `has_many :articles` in User model and
+`belongs_to :user` in Article model.
+
+To test it: when entering `user1.articles` in rails console,
+we get 
+`SELECT "articles".* FROM "articles" WHERE "articles"."user_id" = ?  [["user_id", 1]]
+=> []`
+
+Let's create a new article for the first user in rails console by:
+`user1.articles.build(title: 'hey man nice shot', description: 'the Rolling Stones great hits')`, so
+when we enter `user1.articles`, the created rolling stones article will appear.
+
+Let's consider that `article` is a first article and  `articleLast` is the last article.
+
+`user2.articles << article`
+and `user2.articles << articleLast`
+
+Thus, the array of elements will be returned: [ <el with id 1>, <el with id 25> ]
+
+But now when we run the server, we wouldn't edit the article (except the article connected with the user).
+This is because now to update an article we need a `user_id`.
+
+<h1> NEVER DO ROLLBACK TO YOUR DB. CREATE A NEW MIGRATION
+FILE AND USE `add_column` IF YOU NEED TO MAKE A NEW COLUMN FOR A 
+PARTICULAR TABLE.</h1>
+
+**To reload the console, use:** `reload!`
+
+Remember that every our article now needs a user_id to update? Good.
+We also need a user_id to create an article. 
+Let's go to Article controller and write `@article.user_id = Article.first`
+in Create action. This is for our first article. Other articles we'll be assigned to the user through 
+rails console: `Article.update_all(user_id: User.first.id)`
+Now, all articles are assigned to the first user in our User table and all of them have `user_id` of 4.
+
+To dynamically show all the users, code `by <%= article.user.username %>`
+in the .each loop in the index.html.
+
+_________________
+We also should be sure about our email validation.
+Let's add `before_save { self.email = email.downcase }` in our User model.
+`self` means every user object, being created.
+So, if we enter user's email 'JoHn@gmail.com', and then enter `.save!` in 
+the rails console, the email will be automatically changed to 'john@gmail.org'.
+
+<h1>Adding Secure Password</h1>
+
+**As it is known, ordinary passwords are not saved into db.
+They are saved in the hash format. The hash variant is always
+stable. And a hacker can hack the db and get a hash variant. 
+So, in order to keep your password save, the salt is added.
+Salt is a piece of a random data, so every time the password
+of a new user runs through hashing algorithm, the salt is added.**
+
+1) Let's create a new migration, called `add_password_digest_to_users`.
+2) In the migration file, use `add_column :users, :password_digest, :string`.
+3) When we run migration and open the rails console and enter `User.all`, we'll see
+that every user has a `password_digest` field, which is `nil` now.
+4) Add `has_secure_password` field to User model.
+5) Run `my_password = BCrypt::Password.create("kekekek")` in the console and
+then, the hashed version of a password will appear. If we run again, the 
+hash would be kind of different. This happens because of salt.
+6) To see the salt of the hash password, use `my_password.salt`.
+7) Let's add the ordinary password to our last user (it will be hashed anyway) by
+`lastUser.password_digest = 'smth'` and run `lastUser.save!`. The password is saved and hashed.
+
+<h1>New user signup form</h1>
+
+
+
+
 
 
 

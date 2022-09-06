@@ -25,3 +25,7 @@
 .articles--table .desc {
     color: darkseagreen;
 }
+
+.container-fluid {
+    color: #0dcaf0;
+}
