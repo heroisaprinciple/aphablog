@@ -263,7 +263,7 @@ column to articles table `user_id` in a new migration file:
    `add_column :articles, :user_id, :integer`.
 
     So, when we run `Article.all` in rails console after
-`rails db:migrate`, all our enities will have a user_id field.
+`rails db:migrate`, all our entities will have a user_id field.
 
 
 2) We'll add `has_many :articles` in User model and
@@ -296,7 +296,7 @@ PARTICULAR TABLE.</h1>
 
 Remember that every our article now needs a user_id to update? Good.
 We also need a user_id to create an article. 
-Let's go to Article controller and write `@article.user_id = Article.first`
+Let's go to Article controller and write `@article.user_id = Article.first.user_id`
 in Create action. This is for our first article. Other articles we'll be assigned to the user through 
 rails console: `Article.update_all(user_id: User.first.id)`
 Now, all articles are assigned to the first user in our User table and all of them have `user_id` of 4.
@@ -332,7 +332,21 @@ hash would be kind of different. This happens because of salt.
 7) Let's add the ordinary password to our last user (it will be hashed anyway) by
 `lastUser.password_digest = 'smth'` and run `lastUser.save!`. The password is saved and hashed.
 
+_________________
 <h1>New user signup form</h1>
+
+Let's go to routes and add there `get 'signup', to: 'users#new' `.
+Then, generate controller and a view.
+In the view, 'users/new', we'll create a form to create a new user. 
+Using `email_field` allows us to check an email field.
+In essence, if we use an inappropriate email, then the error appears.
+
+![emailValidationInForm](https://i.imgur.com/CGtT5WW.png)
+
+And we can fill the form, but there'll be an error cause no `create` method is used in
+controller yet.
+To see the `params` of your hashed data, use `params` in `binding.break` console.
+
 
 
 

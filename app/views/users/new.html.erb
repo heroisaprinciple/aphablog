@@ -1,0 +1,29 @@
+<div class="p-3 user--registration">
+
+  <h1 class="h1--new--user">Creating a new user...</h1>
+
+  <%= form_with scope: :user, url: '/users', method: :post, data: { turbo: false } do |form| %>
+
+    <p>
+      <%= form.label :username %> <br>
+      <%= form.text_field :username %>
+    </p>
+
+    <p>
+      <%= form.label :email %> <br>
+      <%= form.email_field :email %>
+    </p>
+
+    <p>
+      <%= form.label :password %> <br>
+      <%= form.password_field :password %>
+    </p>
+
+    <p>
+      <%= form.submit "enter" %>
+    </p>
+
+
+  <% end %>
+
+</div>

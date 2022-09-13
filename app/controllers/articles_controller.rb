@@ -41,11 +41,8 @@ class ArticlesController < ApplicationController
     # rails will
     # extract `id` from `@article` class instance.
     @article = Article.new(articleParams)
-    binding.break
     @article.user_id = Article.first.user_id
-    binding.break
     if @article.save!
-      binding.break
       flash[:notice] = 'Article is created successfully.' # notice is the key
       redirect_to @article
 
@@ -84,7 +81,7 @@ class ArticlesController < ApplicationController
 
   end
 
-  private # means that the module is only available to that controller
+  # private # means that the module is only available to that controller
   def findArticle
     @article = Article.find(params[:id])
   end
@@ -92,4 +89,5 @@ class ArticlesController < ApplicationController
   def articleParams
     params.require(:article).permit(:id, :title, :description)
   end
+
 end

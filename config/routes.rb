@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   resources :articles, only: [:show, :index, :new, :create, :edit, :update, :destroy] # searching for all routes, only specifies the necessary route
   # resources when you need /articles and then /articles/1 and etc (using REST)
 
+  get 'signup', to: 'users#new'
+  # post, patch, delete requests for users all in one, except the /signup route
+  # because we already have our new controller used
+  resources :users, except: [:new]
+
 end
