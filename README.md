@@ -354,9 +354,12 @@ To see all `/edit` routes (a specific routes), use `rails routes --expanded | gr
 
 We need `/users/:id/edit(.:format)`. We'll create `edit` and `update` methods.
 
-As we are in a different branch, we'll use:
+<h3> As we are in a different branch, we'll use merging: </h3>
 
-``
+`git status` => `git branch` => `git add .` => `git status` => 
+`git commit -m '...` => `git checkout master` => `git merge [nameOfAnotherBranch]`
+
+
 
 
 
