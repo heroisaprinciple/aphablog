@@ -8,6 +8,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, length: { maximum: 105 }
   validates_format_of :email, with: /\w+@[a-z]+.[comnetorg]+/, message: "only characters are allowed after @"
 
-  has_secure_password
+  has_secure_password(validations: false)
 
 end

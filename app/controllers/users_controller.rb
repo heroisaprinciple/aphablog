@@ -6,19 +6,30 @@ class UsersController < ApplicationController
   def create
     @user = User.new(userPermit)
     if @user.save!
-      binding.break
       flash['notice'] = "Welcome to the blog, #{@user.username}."
       redirect_to articles_path
 
     else
-      binding.break
       render :new
     end
 
   end
 
-  def show
+  def edit
+    @user = User.find(params[:id])
+  end
 
+  def update
+    @user = User.find(params[:id])
+    binding.break
+    if @user.save!
+      binding.break
+      flash['notice'] = "Your profile is successfully updated, #{@user.username}"
+      redirect_to articles_path
+
+    else
+      render :edit
+    end
   end
 
   private

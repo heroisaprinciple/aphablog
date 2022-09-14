@@ -347,6 +347,19 @@ And we can fill the form, but there'll be an error cause no `create` method is u
 controller yet.
 To see the `params` of your hashed data, use `params` in `binding.break` console.
 
+<h1>Editing exising users</h1>
+
+To see all `/edit` routes (a specific routes), use `rails routes --expanded | grep edit`.
+![editRoutes](https://i.imgur.com/0dHqTFg.png)
+
+We need `/users/:id/edit(.:format)`. We'll create `edit` and `update` methods.
+
+As we are in a different branch, we'll use:
+
+``
+
+
+
 
 
 
