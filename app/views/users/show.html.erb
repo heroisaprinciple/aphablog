@@ -1,0 +1,8 @@
+<div class="p-4">
+
+  <%= gravatar_for @user, size: 200%>
+
+  <h1 class="text-info"> All info about the person is here: </h1>
+  <p class="text-muted"> Username: <%= @user.username %></p>
+  <p class="font-weight-bold"> Email: <%= @user.email %></p>
+</div>

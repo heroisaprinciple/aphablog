@@ -359,6 +359,59 @@ We need `/users/:id/edit(.:format)`. We'll create `edit` and `update` methods.
 `git status` => `git branch` => `git add .` => `git status` => 
 `git commit -m '...` => `git checkout master` => `git merge [nameOfAnotherBranch]`
 
+_______________________
+
+<h1>Show a user, profile picture</h1>
+
+Although we can edit the user on `/users/:id/edit`, when we route to `/users/:id`,
+we see `The action 'show' could not be found for UsersController` because
+we didn't define `show` method in User controller. 
+
+Then, we will add in html.erb file:
+  `<h1 class="text-info"> All info about the person is here: </h1>`
+
+  `<p class="text-muted"> Username: <%= @user.username %></p>`
+
+  `<p class="font-weight-bold"> Email: <%= @user.email %></p>`
+
+
+**In order to use avatar pictures, let's use Gravatar**
+
+Gravatar will make the profile image associated with the email.
+(Thanks to Wordpress)
+If a person does not have any account on Gravatar, then just ordinary
+avatar pic appears instead of image. 
+
+Let's test it in the Ruby console (making avatar for @whiteblinders user):
+
+1) Write `email_address = "valcat552@gmail.com"`
+2) Then `hash = Digest::MD5.hexdigest(email_address)`
+3) Compile url (for <img>) with `image_src = "https://www.gravatar.com/avatar/#{hash}"` 
+
+Now, it's good. let's make it in the rails app.
+We will define `gravatar_for(user` method in the `users_helper.rb`. 
+**We can use these helper methods later in the views**
+
+We'll do the same thing in `gravatar_for(user)` as we did earlier in the rails console.
+Plus, we'll add the img src url and alternative text in the
+`image_tag` built-in method: `image_tag(image_src, alt: user.username)`.
+
+The, add it to the `show.html.erb` file: `<%= gravatar_for @user %>`
+
+Then, when we look to `/users/[:id]`, the avatar should appear.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
