@@ -1,11 +1,23 @@
-<div>
+<div class="text-center">
   <% @user.each do |user| %>
-    <p> <%= user.username %></p>
-    <p> <%= user.email %></p>
+    <%= gravatar_for(user, size: 100) %>
+
+    <p>
+      <%= user.username %> : <%= mail_to user.email %>
+    </p>
+
+    <p class="text-primary fw-bold">
+      Number of articles created: <%= user.articles.count %>
+    </p>
+
+    <p class="pb-4" >
+      <%= link_to 'View the profile', user %> <!-- to the particular user profile -->
+      <%= link_to 'Edit the profile', edit_user_path(user) %>
+    </p>
   <% end %>
 </div>
 
-<div>
+<div class="mt-5 text-center">
   <p> <%= link_to 'Return to articles', articles_path  %> </p>
   <p> <%= link_to 'Return to about page', about_path  %> </p>
   <p> <%= link_to 'Return to the main page', root_path %> </p>

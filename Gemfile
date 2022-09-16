@@ -40,7 +40,9 @@ gem 'cssbundling-rails', '~> 1.1'
 gem 'bootstrap', '~> 5.2.0'
 
 gem 'execjs'
-gem 'mini_racer', platforms: :ruby
+
+gem 'will_paginate', '~> 3.3'
+gem 'kaminari'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]

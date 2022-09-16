@@ -389,7 +389,7 @@ Let's test it in the Ruby console (making avatar for @whiteblinders user):
 3) Compile url (for <img>) with `image_src = "https://www.gravatar.com/avatar/#{hash}"` 
 
 Now, it's good. let's make it in the rails app.
-We will define `gravatar_for(user` method in the `users_helper.rb`. 
+We will define `gravatar_for(user)` method in the `users_helper.rb`. 
 **We can use these helper methods later in the views**
 
 We'll do the same thing in `gravatar_for(user)` as we did earlier in the rails console.
@@ -399,6 +399,33 @@ Plus, we'll add the img src url and alternative text in the
 The, add it to the `show.html.erb` file: `<%= gravatar_for @user %>`
 
 Then, when we look to `/users/[:id]`, the avatar should appear.
+
+-----------------------
+
+<h1>Redirect when updating a user</h1>
+
+Earlier we didn't have `show` action in users controller, so we redirected to all articles page.
+Now, when `show` is created and filled in, we can redirect to the actual user, using
+`redirect_to user_path(@user)`, which is the same as `redirect_to @user`.
+
+---------------------
+<h1>Add pagination (limitation of articles on the page)</h1>
+
+Let's make a limitation for each page: only several articles will be available on the 
+page. The same amount of articles will be available on the other page and etc.
+
+1) Add `gem 'will_paginate', '~> 3.3'`
+2) Go to articles controller and change `@article = Article.all` to
+`@article = Article.paginate(page: params[:page], per_page: 10)` 
+Thus, every 10 articles will be displayed on every page.
+3) Them render page links in the articles/index.html view: `<%= will_paginate @article %>`
+4) 
+
+
+
+
+
+
 
 
 

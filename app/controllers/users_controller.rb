@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def index
     @user = User.all
   end
@@ -7,7 +8,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    findParams
+
+    @articles = @user.articles # to show particular articles, connected to the user
   end
 
   def create
@@ -23,16 +26,17 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    findParams
   end
 
   def update
-    @user = User.find(params[:id])
+    findParams
+
     binding.break
-    if @user.save!
+    if @user.update(userPermit)
       binding.break
       flash['notice'] = "Your profile is successfully updated, #{@user.username}"
-      redirect_to articles_path
+      redirect_to user_path(@user) # the same as @user
 
     else
       render :edit
@@ -40,6 +44,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def findParams
+    @user = User.find(params[:id])
+  end
   def userPermit
     params.require(:user).permit(:username, :email, :password)
   end
