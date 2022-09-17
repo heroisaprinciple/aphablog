@@ -1,3 +1,11 @@
+<div class="digg_pagination text-center m-4 pb-3">
+
+  <div class="page_info">
+    <%= page_entries_info @user %>
+  </div>
+  <%= will_paginate @user, :container => false %>
+</div>
+
 <div class="text-center">
   <% @user.each do |user| %>
     <%= gravatar_for(user, size: 100) %>

@@ -1,8 +1,13 @@
-<h1 class="h1--index">The full listing of articles: </h1>
+<h1 class="h1--index p-4 shadow-lg p-4 mb-4 bg-white">The full listing of articles: </h1>
 
-<%= will_paginate @article %>
+<div class="digg_pagination text-center m-4 pb-3">
+  <div class="page_info">
+    <%= page_entries_info @article %>
+  </div>
+  <%= will_paginate @article, :container => false %>
+</div>
 
-<div class="articles--table">
+<div class="articles--table p-4">
   <table>
     <thead>
     <tr>
@@ -14,7 +19,6 @@
 
     <tbody>
     <% @article.each do |article| %>
-    by <%= article.user.username %>
       <tr>
         <td class="title"> <%= article.title %></td>
         <td class="desc"> <%= article.description %></td>

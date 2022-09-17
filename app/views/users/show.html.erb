@@ -2,9 +2,16 @@
 
   <%= gravatar_for @user, size: 200%>
 
+  <div class="digg_pagination text-center m-4 pb-3">
+    <div class="page_info">
+      <%= page_entries_info @article %>
+    </div>
+    <%= will_paginate @article, :container => false %>
+  </div>
+
   <h1 class="text-info"> All info about the person is here: </h1>
   <p class="text-muted"> Username: <%= @user.username %></p>
-  <p class="font-weight-bold"> Email: <%= @user.email %></p>
+  <p class="font-weight-bold"> Email: <%= mail_to @user.email %></p>
 
   <p>All articles</p>
   <%= render 'layouts/partials/articles' %> <!--to display particular article, connected to the user-->

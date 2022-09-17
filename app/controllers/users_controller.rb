@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
   def index
-    @user = User.all
+    #@user = User.all
+
+    @user = User.paginate(page: params[:page], per_page: 10)
   end
   def new
     @user = User.new
@@ -10,7 +12,7 @@ class UsersController < ApplicationController
   def show
     findParams
 
-    @articles = @user.articles # to show particular articles, connected to the user
+    @article = @user.articles.paginate(page: params[:page], per_page: 10) # to show particular articles, connected to the user
   end
 
   def create
@@ -43,7 +45,6 @@ class UsersController < ApplicationController
     end
   end
 
-  private
 
   def findParams
     @user = User.find(params[:id])

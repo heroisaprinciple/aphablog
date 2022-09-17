@@ -60,7 +60,7 @@ again: `rails db:rollback` and then `rails db:migrate`
 Actually, when you work in the team, it would be much better to create
 **new migration file** where a developer see every change. 
 
-To do this, generate a new migration file by `rails generate [another_name]
+To do this, generate a new migration file by `rails generate migration [another_name]
 ` and update the column by adding timestamps. **What is good, WebStorm
 generates it automatically.**
 
@@ -117,7 +117,9 @@ ______
 Let's destroy the third article by `article.destroy`. The article is returned, but when you enter `Article.all`, there is
 no article 3. There is no need to save anything.
 
-<h2> Validation of records </h2>
+_________________
+
+<h1> Validation of records </h1>
 By now, we can save empty records. This is not okay. There are no restrictions in article.rb file,
 so we'll create them. First, we'll make sure that title of the article is necessary to fill in by
 
@@ -285,8 +287,8 @@ and `user2.articles << articleLast`
 
 Thus, the array of elements will be returned: [ <el with id 1>, <el with id 25> ]
 
-But now when we run the server, we wouldn't edit the article (except the article connected with the user).
-This is because now to update an article we need a `user_id`.
+**But now when we run the server, we couldn't edit the article (except the article connected with the user).
+This is because now to update an article we need a `user_id`.**
 
 <h1> NEVER DO ROLLBACK TO YOUR DB. CREATE A NEW MIGRATION
 FILE AND USE `add_column` IF YOU NEED TO MAKE A NEW COLUMN FOR A 
@@ -307,7 +309,7 @@ in the .each loop in the index.html.
 _________________
 We also should be sure about our email validation.
 Let's add `before_save { self.email = email.downcase }` in our User model.
-`self` means every user object, being created.
+**`self` means every user object, being created.**
 So, if we enter user's email 'JoHn@gmail.com', and then enter `.save!` in 
 the rails console, the email will be automatically changed to 'john@gmail.org'.
 
@@ -363,9 +365,9 @@ _______________________
 
 <h1>Show a user, profile picture</h1>
 
-Although we can edit the user on `/users/:id/edit`, when we route to `/users/:id`,
+**Although we can edit the user on `/users/:id/edit`, when we route to `/users/:id`,
 we see `The action 'show' could not be found for UsersController` because
-we didn't define `show` method in User controller. 
+we didn't define `show` method in User controller.**
 
 Then, we will add in html.erb file:
   `<h1 class="text-info"> All info about the person is here: </h1>`
@@ -404,9 +406,9 @@ Then, when we look to `/users/[:id]`, the avatar should appear.
 
 <h1>Redirect when updating a user</h1>
 
-Earlier we didn't have `show` action in users controller, so we redirected to all articles page.
+**Earlier we didn't have `show` action in users controller, so we redirected to all articles page.
 Now, when `show` is created and filled in, we can redirect to the actual user, using
-`redirect_to user_path(@user)`, which is the same as `redirect_to @user`.
+`redirect_to user_path(@user)`, which is the same as `redirect_to @user`.**
 
 ---------------------
 <h1>Add pagination (limitation of articles on the page)</h1>
@@ -418,8 +420,10 @@ page. The same amount of articles will be available on the other page and etc.
 2) Go to articles controller and change `@article = Article.all` to
 `@article = Article.paginate(page: params[:page], per_page: 10)` 
 Thus, every 10 articles will be displayed on every page.
-3) Them render page links in the articles/index.html view: `<%= will_paginate @article %>`
-4) 
+3) Then render page links in the articles/index.html view: `<%= will_paginate @article %>`
+4) In order to use styling techniques, better wrap render page links into the div. Look at index view.
+
+The same is for users.
 
 
 
