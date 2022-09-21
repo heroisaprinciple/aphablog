@@ -11,25 +11,27 @@
 
 <!-- in case of editing form, we want to display all existing info about the
 article-->
-<%= form_with model: @user, method: :patch do |form|  %>
-  <p>
-    <%= form.label :username %> <br>
-    <%= form.text_field :username %>
-  </p>
+<% if logged_in? && @user.id == current_user.id %>
+  <%= form_with model: @user, method: :patch do |form|  %>
+    <p>
+      <%= form.label :username %> <br>
+      <%= form.text_field :username %>
+    </p>
 
-  <p>
-    <%= form.label :email %> <br>
-    <%= form.email_field :email %>
-  </p>
+    <p>
+      <%= form.label :email %> <br>
+      <%= form.email_field :email %>
+    </p>
 
-  <p>
-    <%= form.label :password %> <br>
-    <%= form.password_field :password %>
-  </p>
+    <p>
+      <%= form.label :password %> <br>
+      <%= form.password_field :password %>
+    </p>
 
-  <p>
-    <%= form.submit(@user.new_record? ? 'Sign Up' : 'Update account')%>
-  </p>
+    <p>
+      <%= form.submit(@user.new_record? ? 'Sign Up' : 'Update account')%>
+    </p>
+  <% end %>
 <% end %>
 
 

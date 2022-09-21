@@ -17,8 +17,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(userPermit)
+    binding.break
     if @user.save!
-      flash['notice'] = "Welcome to the blog, #{@user.username}."
+      session[:user_id] = @user.id
+      binding.break
       redirect_to articles_path
 
     else
@@ -44,7 +46,6 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
 
   def findParams
     @user = User.find(params[:id])

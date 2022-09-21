@@ -1,13 +1,18 @@
-<h1 class="showing-details">Showing details</h1>
+<div class="p-4">
+  <h1 class="showing-details">Showing details</h1>
 
-<p class="title">Title: <%= @article.title %></p>
-<p class="description">Description: <%= @article.description %></p>
+  <p class="title">Title: <%= @article.title %></p>
+  <p class="description">Description: <%= @article.description %></p>
 
-<p>
-  <%= link_to 'Edit', edit_article_path(@article) %> |
-  <%= link_to 'Delete',  article_path(@article), data: {
-    turbo_method: :delete,
-    turbo_confirm: "Are you sure?"
-  }  %> |
-  <%= link_to 'Return to main page', articles_path %>
+  <p>
+    <% if logged_in? && @article.user_id == current_user.id %>
+        <%= link_to 'Edit', edit_article_path(@article) %>
+        <%= link_to 'Delete',  article_path(@article), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+        } %>
+      <% end %>
+    <%= link_to 'Return to main page', articles_path %>
 </p>
+
+</div>

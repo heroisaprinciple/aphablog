@@ -17,12 +17,15 @@
         <td class="title"> <%= article.title %></td>
         <td class="desc"> <%= article.description %></td>
         <td> <%= link_to 'Show', article_path(article.id) %></td>
-        <td> <%= link_to 'Edit', edit_article_path(article.id) %></td>
-        <td> <%= link_to 'Delete', article_path(article.id),  data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?"
-        } %> </td>
-      </tr>
+
+        <% if logged_in? && article.user_id == current_user.id %>
+            <td> <%= link_to 'Edit', edit_article_path(article.id) %></td>
+            <td> <%= link_to 'Delete', article_path(article.id),  data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            } %> </td>
+          </tr>
+          <% end %>
     <% end %>
     </tbody>
   </table>

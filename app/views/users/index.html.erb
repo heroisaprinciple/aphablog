@@ -20,7 +20,10 @@
 
     <p class="pb-4" >
       <%= link_to 'View the profile', user %> <!-- to the particular user profile -->
-      <%= link_to 'Edit the profile', edit_user_path(user) %>
+
+      <% if logged_in? && user == current_user %>
+          <%= link_to 'Edit the profile', edit_user_path(user) %>
+      <% end %>
     </p>
   <% end %>
 </div>

@@ -13,4 +13,9 @@ Rails.application.routes.draw do
   # because we already have our new controller used
   resources :users, except: [:new]
 
+  # for login
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
 end

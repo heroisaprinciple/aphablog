@@ -11,20 +11,22 @@
 
 <!-- in case of editing form, we want to display all existing info about the
 article-->
-<%= form_with model: @article, method: :patch do |form|  %>
-  <p>
-    <%= form.label :title %> <br>
-    <%= form.text_field :title %>
-  </p>
+<% if logged_in? && @article.user_id == current_user.id %>
+  <%= form_with model: @article, method: :patch do |form|  %>
+    <p>
+      <%= form.label :title %> <br>
+      <%= form.text_field :title %>
+    </p>
 
-  <p>
-    <%= form.label :description %> <br>
-    <%= form.text_area :description %>
-  </p>
+    <p>
+      <%= form.label :description %> <br>
+      <%= form.text_area :description %>
+    </p>
 
-  <p>
-    <%= form.submit "enter" %>
-  </p>
+    <p>
+      <%= form.submit "enter" %>
+    </p>
+  <% end %>
 <% end %>
 
 <%= link_to 'Return to the main page', articles_path %>

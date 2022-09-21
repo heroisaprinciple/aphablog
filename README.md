@@ -1,28 +1,3 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 <h1> Rails syntax </h1>
 
 When you want to **display data**, use `<%= %>`
@@ -40,6 +15,7 @@ Ex:
     </tr>
     <% end %>
 
+-----------
 
 <h1> Working with DB </h1>
 
@@ -136,6 +112,8 @@ To save these changes to the model, use `reload!`
 **To see other validation methods, use** https://guides.rubyonrails.org/active_record_validations.html
 
 <h1>Route, action, view</h1>
+
+<h3>Helpers are for views, controllers for code </h3>
 
 <h3>When a request is made from the browser, which part of the rails application receives this request?
 
@@ -424,6 +402,47 @@ Thus, every 10 articles will be displayed on every page.
 4) In order to use styling techniques, better wrap render page links into the div. Look at index view.
 
 The same is for users.
+
+<h2> You can use `article_path` when we want to work with all articles. 
+If you mean to work with a particular article, use `article_path(@article)`. The same is for users.  </h2>
+---------------
+<h1>LOGIN/LOGOUT</h1>
+
+<h3>Login and logout</h3>
+Let's create a login form.
+1) Go to `routes` and enter following routes: `get 'login', to: 'sessions#new'` and
+   `post 'login', to: 'sessions#create'` and 
+   `delete 'logout', to: 'sessions#destroy'`
+
+**We'll have to manually write routes (instead of using `resources`) as login won't affect our db at all.**
+2) Create controller for sessions.
+
+3) Create a form in `sessions/new.html.erb`. We can omit the scope. 
+4) We will login (`/login`) with the help of `new` action. When logging in, we'll go to `/login` (which is proceeded by post 
+request and `create` controller)
+5) In `create` controller, we will find the user by email and authenticate the user. We'll be using sessions, and
+they are available by using `session` object. We'll also change a line in create action of users,
+we will save their id with every session.
+In application controller we'll create a `current_user` and `logged_in?` methods and use them
+as helper methods. 
+
+**There, we will use memoization. Without memoization, we'll need to query the db every time to 
+find a user but if we already referenced a current user and have current user object 
+available, then we can return a current user: `@current_user ||= User.find(session[:user_id]) if session[:user_id]`
+Otherwise, we'll need to query the db to find a user.**
+
+Also, we'll save our user id from forgery attack (including malicious links and etc) to an application.
+**All sessions are special secure cookies.**
+6) To destroy our session, we will set our session of the user to nil. In **Browser Tools, in Application window** we can see
+that a **user has session 1 when logging in**. When logging out, session ends.
+7) Now, as login code is completed, we will assign every new article to a logged in user, we'll go to
+`create` method in articles controller and put there `@article.user_id = current_user.id`.
+
+Source: https://www.theodinproject.com/lessons/ruby-on-rails-sessions-cookies-and-authentication
+
+
+______________
+
 
 
 

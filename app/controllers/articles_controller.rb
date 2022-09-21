@@ -26,6 +26,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    binding.break
     # displaying this article
 
     # when creating a new article, nothing might happen and a new article is not saved.
@@ -42,8 +43,12 @@ class ArticlesController < ApplicationController
     # rails will
     # extract `id` from `@article` class instance.
     @article = Article.new(articleParams)
-    @article.user_id = Article.first.user_id
+    binding.break
+    # we'll set to a logged in user our article_id
+    @article.user_id = current_user.id
+    binding.break
     if @article.save!
+      binding.break
       flash[:notice] = 'Article is created successfully.' # notice is the key
       redirect_to @article
 

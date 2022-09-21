@@ -1,3 +1,14 @@
+<div class="user_header p-4">
+  <% if current_user %>
+    Logged in as <%= current_user.email %>
+    <p></p>
+    <%= button_to "Log Out", logout_path,  method: :delete, data: { turbo_method: :delete }, class: "btn btn-outline-dark" %>
+  <% else %>
+    <%= link_to "Sign Up", signup_path %> or
+    <%= link_to "Log In", login_path %>
+  <% end %>
+</div>
+
 <div class="p-4">
 
   <%= gravatar_for @user, size: 200%>
@@ -15,4 +26,5 @@
 
   <p>All articles</p>
   <%= render 'layouts/partials/articles' %> <!--to display particular article, connected to the user-->
+
 </div>
