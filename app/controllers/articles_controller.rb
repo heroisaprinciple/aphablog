@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   # means do before the particular action
   before_action :findArticle, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, except: [:show, :index]
 
   def index
     # @article = Article.all

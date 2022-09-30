@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
     true if current_user
   end
 
+  def require_user
+    unless logged_in?
+      flash[:notice] = 'You need to be logged in first...'
+      redirect_to login_path
+    end
+  end
+
   helper_method :current_user
   helper_method :logged_in?
 

@@ -11,7 +11,7 @@
 
 <!-- in case of editing form, we want to display all existing info about the
 article-->
-<% if logged_in? && @article.user_id == current_user.id %>
+<% if logged_in? && (@article.user_id == current_user.id || current_user.admin?) %>
   <%= form_with model: @article, method: :patch do |form|  %>
     <p>
       <%= form.label :title %> <br>

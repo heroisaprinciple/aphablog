@@ -5,14 +5,11 @@
   <p class="description">Description: <%= @article.description %></p>
 
   <p>
-    <% if logged_in? && @article.user_id == current_user.id %>
-        <%= link_to 'Edit', edit_article_path(@article) %>
-        <%= link_to 'Delete',  article_path(@article), data: {
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?"
-        } %>
+    <% if logged_in? && (@article.user_id == current_user.id || current_user.admin?) %>
+        <%= link_to 'Edit', edit_article_path(@article), class: "" %>
+      <%= button_to "Delete", article_path(@article),  method: :delete, data: { turbo_method: :delete }, class: "btn btn-outline-dark" %>
       <% end %>
-    <%= link_to 'Return to main page', articles_path %>
+    <%= link_to 'Return to the main page', root_path %>
 </p>
 
 </div>

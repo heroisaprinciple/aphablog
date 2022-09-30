@@ -1,13 +1,36 @@
-<div class="user_header p-4">
-  <% if current_user %>
+<div class="p-4">
+  <% if logged_in? && current_user == @user %>
     Logged in as <%= current_user.email %>
     <p></p>
-    <%= button_to "Log Out", logout_path,  method: :delete, data: { turbo_method: :delete }, class: "btn btn-outline-dark" %>
-  <% else %>
-    <%= link_to "Sign Up", signup_path %> or
-    <%= link_to "Log In", login_path %>
-  <% end %>
+
+    <%= "Admin" if current_user.admin? %>
+
+    <p></p>
+
+    <%= button_to "Log Out", logout_path,  method: :delete, data: { turbo_method: :delete }, class: "m-1 btn btn-outline-dark" %>
+    <%= button_to "Delete account", user_path(current_user),  method: :delete, data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?" }, class: "m-1 btn btn-outline-danger" %>
+
+    <% end %>
+
+  <% unless logged_in? %>
+  <%=  link_to "Sign Up", signup_path  %> or
+    <%=  link_to "Log In", login_path  %>
+  <%  end %>
 </div>
+
+  <div class=" dropdown-menu d-flex align-items-end flex-column" aria-labelledby="navbarDropdownMenuLink">
+    <div class="dropdown-item p-2">
+      <%= link_to 'Return to the articles page', articles_path %>
+    </div>
+    <div class="dropdown-item p-2">
+      <%= link_to 'Return to the main page', root_path %>
+    </div>
+    <div class="dropdown-item p-2">
+      <%= link_to 'Update the profile', edit_user_path(@user) %>
+    </div>
+  </div>
 
 <div class="p-4">
 
@@ -26,5 +49,6 @@
 
   <p>All articles</p>
   <%= render 'layouts/partials/articles' %> <!--to display particular article, connected to the user-->
+
 
 </div>

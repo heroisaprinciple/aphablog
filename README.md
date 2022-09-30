@@ -441,7 +441,48 @@ that a **user has session 1 when logging in**. When logging out, session ends.
 Source: https://www.theodinproject.com/lessons/ruby-on-rails-sessions-cookies-and-authentication
 
 
-______________
+------------------
+<h1>Restricting in controllers</h1>
+Restricting in UI is good, but if we are not logged in, we still can create a new article when going to
+
+`users/new`
+
+Let's restrict it in application controller and then go to articles controller and specify when this restriction is 
+not needed: `before_action :require_user, except: [:show, :index]`
+
+--------------
+<h1>Deleting the user and articles of this user</h1>
+We'll create a 
+
+`destroy` action in users controller. Anyway, when we delete user,
+the articles of this user stay, which is wrong. 
+To delete all articles with this user, use `has_many :articles, dependent: destroy` in user model.
+Then, just reload the browser. 
+
+--------------
+<h1> Permissions functionality, adding admin user functionality </h1>
+
+First, we will add `admin` column to user table. For all users value would be `false`, except one.
+Generate a new migration file: `rails generate migration add_admin_to_users`, add column there and run `rails db:migrate`.
+**We can see changes in `schema.rb` file.**
+To check if user is admin, type: `user = ...` and `user.admin?`.
+
+Let's set whiteblinders to be admin. 
+**To toggle db, use: `user.toggle!(:admin)`. This will change boolean value to opposite.**
+
+**To render text, without using styles, use `<%= "Admin" if current_user.admin? %>` in user/show file.**
+
+Since whiteblinders is admin, we want to give him/her permission to edit or delete articles of other users by 
+using `current_user.admin?` in edit views. 
+
+-----------------
+
+
+
+
+
+
+
 
 
 
