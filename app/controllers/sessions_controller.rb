@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     binding.break
     # notice that user, not @user, because instance var (person) is already existing, but we just need to log in
-    user = User.find_by(email: params[:email].downcase)
+    user = User.find_by(email: params[:email])
     binding.break
     if user.present? && user.authenticate(params[:password])
       binding.break

@@ -476,6 +476,54 @@ Since whiteblinders is admin, we want to give him/her permission to edit or dele
 using `current_user.admin?` in edit views. 
 
 -----------------
+<h1>Many-to-many association and testing</h1>
+
+**We'll create a Category for each article. Each article will have a category.
+Many articles can belong to one category. One category can have many articles. This is why we need many-to-many association.**
+
+**To have it, we'll create a separate table, which will store article_id and category_id.**
+![schema](img.png)
+
+**We will also use testing for our purposes.**
+![theory](img_1.png)
+
+**To test our controllers, go to test/controllers.**
+
+<h3>To minitests</h3>
+`assert true`
+
+An assertion is a line of code that evaluates an object (or expression) for expected results. 
+For example, an assertion can check:
+
+1) does this value = that value?
+2) is this object nil?
+3) does this line of code throw an exception?
+4) is the user's password greater than 5 characters?
+
+Every test may contain one or more assertions, with no restriction as to how many assertions are allowed. 
+Only when all the assertions are successful will the test pass.
+
+All the basic assertions such as assert_equal defined in Minitest::Assertions are also available in the classes we use in our own test cases. In fact, Rails provides the following classes for you to inherit from:
+
+```
+1) ActiveSupport::TestCase
+2) ActionMailer::TestCase
+3) ActionView::TestCase
+4) ActiveJob::TestCase
+5) ActionDispatch::IntegrationTest
+6) ActionDispatch::SystemTestCase
+7) Rails::Generators::TestCase
+```
+
+Each of these classes include `Minitest::Assertions`, allowing us to use all of the basic assertions in our tests.
+
+**We can run all of our tests at once by using the `rails test` command in the terminal.**
+
+____________
+**Let's go to test/models and since we want to test the Category model (which does not exist now), we will create a file
+`category_test` to test our Category model. When we created User model via `generate...`, the test file `user_test` is 
+created automatically.**
+
 
 
 
