@@ -524,6 +524,24 @@ ____________
 `category_test` to test our Category model. When we created User model via `generate...`, the test file `user_test` is 
 created automatically.**
 
+We will test our `@category` object to see if it is valid or not (remember, Category model is not created yet):
+```
+test "category should be valid" do 
+    @category = Category.new(name: 'Sports')
+    assert @category.valid?
+  end
+```
+**The test will result in error, as no Category model exists. The thing is: we always need to write tests firstly.
+This is what test-driven-development is.**
+
+Let's create it with `rails generate model [name]`. In migration file we'll add name field. 
+We can go `rails test` or use `Category.all` in rails console.
+We'll create a new category object by `@category = Category.new(name: 'sports')` and check it with `@category.valid?`
+
+
+
+
+
 
 
 
