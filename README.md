@@ -517,7 +517,10 @@ All the basic assertions such as assert_equal defined in Minitest::Assertions ar
 
 Each of these classes include `Minitest::Assertions`, allowing us to use all of the basic assertions in our tests.
 
-**We can run all of our tests at once by using the `rails test` command in the terminal.**
+**We can run all of our tests at once by using the `rails test` command in the terminal. 
+Or by `rails test test/[folderName]` to run particular tests in one folder, like `rails test test/controllers`. 
+Or by `rails test test/[folderName]/[fileName]` to run a specific test, 
+like `rails test test/controllers/category_controller_test.rb`.**
 
 ____________
 **Let's go to test/models and since we want to test the Category model (which does not exist now), we will create a file
@@ -537,6 +540,60 @@ This is what test-driven-development is.**
 Let's create it with `rails generate model [name]`. In migration file we'll add name field. 
 We can go `rails test` or use `Category.all` in rails console.
 We'll create a new category object by `@category = Category.new(name: 'sports')` and check it with `@category.valid?`
+
+Let's make another test: `name_should_be_present`.
+And we will say that name should not be blank.
+In the first run we'll have:
+```
+Failure:
+CategoryTest#test_name_should_be_present [/mnt/c/Users/Arina/RubymineProjects/rubyUdemyCourse/introToRoR/aphablog/test/models/category_test.rb:11]:     
+Expected true to be nil or false
+```
+
+**This is because we haven't done any validation in the model yet. So, it was expected to result in false.
+But it resulted in true, @category is valid, so blank category names are allowed.**
+
+Let's now make validations in our Category model.
+
+<h3>Remember that each @category object is not available outside of each test. This is why we always need 
+to create a new @category obj in each test.</h3>
+
+For test `should be unique` we'll make a new validation in the model, `validates_uniqueness_of :name`.
+
+______________
+**Let's now switch to Category controller. This is what functional tests are created for.**
+Go to `category_controller_test.rb`. 
+
+**We will use `.create` instead of `.new` in setup as we want to hit the database.
+We'll create some tests to test the routes. In `should_get_category` test we'll need to create an object instance, `@category`.
+We will do this with the `.create` method in setup as without it we would not hit the db and find the index to 
+show a particular category.**
+
+**When running `rails test`, we'll have errors as `undefined local variable or method [...]_url' for...` as
+Rails can not find any route because we did not create them.**
+
+Go to routes file and add `resources :category, except: [:destroy]`.
+We still have errors like `The action 'show' could not be found for CategoryController`. This is because we need to 
+create actions in the controller.
+
+--------------------
+We should be able to create categories in the browser.
+We'll create test for it `should create category`. When running, we'll encounter error: `"Category.count" didn't change by 1.`.
+Let's create a category in the browser by building the form.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -17,10 +17,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(userPermit)
-    binding.break
+    #binding.break
     if @user.save!
       session[:user_id] = @user.id
-      binding.break
+      #binding.break
       redirect_to articles_path
 
     else
@@ -36,9 +36,9 @@ class UsersController < ApplicationController
   def update
     findParams
 
-    binding.break
+    #binding.break
     if @user.update(userPermit)
-      binding.break
+      #binding.break
       flash['notice'] = "Your profile is successfully updated, #{@user.username}"
       redirect_to user_path(@user) # the same as @user
 

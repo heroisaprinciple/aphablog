@@ -1,0 +1,29 @@
+<% if logged_in?  %>
+  <div class="shadow-lg p-4 mb-4 bg-white">
+    <h1 class="h1--index text-info">Create a category: </h1>
+  </div>
+
+  <div class="p-4">
+    <%= form_with scope: :category, url: '/categories', method: :post, data: { turbo: false } do |form| %>
+
+      <p>
+        <%= form.label :name %> <br>
+        <%= form.text_field :name %>
+      </p>
+
+      <p>
+        <%= form.submit "Create a category", class: "btn btn-outline-dark"%>
+      </p>
+
+
+    <% end %>
+
+  </div>
+
+<% end %>
+
+<% unless logged_in? %>
+  <h1> Log in or sign in first...</h1>
+<%   end %>
+
+
