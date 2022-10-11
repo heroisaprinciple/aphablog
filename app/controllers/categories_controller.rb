@@ -9,19 +9,19 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(categoryParams)
-    @category.user_id = current_user.id
+    # @category.user_id = current_user.id
     if @category.save!
-      flash[:notice] = 'Yoiii'
+      flash[:notice] = 'A new category is created.'
       redirect_to @category
 
     else
-      flash[:alert] = 'no'
+      flash[:alert] = 'A new category is NOT created. Try again.'
       render :new
     end
   end
 
   def show
-
+    @category = Category.find(params[:id])
   end
 
   private

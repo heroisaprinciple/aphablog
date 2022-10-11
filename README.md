@@ -581,6 +581,15 @@ We should be able to create categories in the browser.
 We'll create test for it `should create category`. When running, we'll encounter error: `"Category.count" didn't change by 1.`.
 Let's create a category in the browser by building the form.
 
+**After that, we need to test the whole integration process of creating a category.**
+For that, we'll use `rails generate integration_test create_category`.
+Go to integration folder.
+
+**After that, let's test listing of categories. We'll also use pagination**.
+For that, we'll use `rails generate integration_test list_categories`.
+Go there.
+
+
 
 
 

@@ -20,14 +20,14 @@ class CategoryControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create category" do
-    assert_difference('Category.count', 1) do # we want to see the change in categories number, so we'll
+  #test "should create category" do
+  # assert_difference('Category.count', 1) do # we want to see the change in categories number, so we'll
       # increment by 1
-      post categories_url, params: { category: { name: 'Travel'} } # params is a hash, don't you FORGET ABOUT IT
-    end
+  #   post categories_url, params: { category: { name: 'Travel'} } # params is a hash, don't you FORGET ABOUT IT
+  # end
 
-    assert_redirected_to category_url(Category.last) # whatever the last category is, we'll redirect to it
-  end
+  # assert_redirected_to category_url(Category.last) # whatever the last category is, we'll redirect to it
+  #end
 
   # test "should get edit" do
   #   get edit_category_url(@categories)
