@@ -561,6 +561,8 @@ to create a new @category obj in each test.</h3>
 For test `should be unique` we'll make a new validation in the model, `validates_uniqueness_of :name`.
 
 ______________
+<h3>To functional tests</h3>
+
 **Let's now switch to Category controller. This is what functional tests are created for.**
 Go to `category_controller_test.rb`. 
 
@@ -577,6 +579,8 @@ We still have errors like `The action 'show' could not be found for CategoryCont
 create actions in the controller.
 
 --------------------
+<h3>To integrational tests</h3>
+
 We should be able to create categories in the browser.
 We'll create test for it `should create category`. When running, we'll encounter error: `"Category.count" didn't change by 1.`.
 Let's create a category in the browser by building the form.
@@ -588,6 +592,59 @@ Go to integration folder.
 **After that, let's test listing of categories. We'll also use pagination**.
 For that, we'll use `rails generate integration_test list_categories`.
 Go there.
+
+There is an error with `assert_select "a[href=?]", category_path(@category), text: @category.name` 
+like `Expected at least 1 element matching "a[href="/categories/980190963"]", found 0..`. The reason
+for it is that we did not fill the index view properly. As we test view (`assert_select`), we need to be sure
+that:
+1) Firstly index file is created.
+2) There are HTML els that we are testing. We are testing that our body has a link. For that we need
+`<td> <%= link_to category.name, category_path(category.id) %></td>` in the view.
+
+_____________
+
+<h3>Admin user requirement and test</h3>
+
+We need to make sure that only admin is able to create categories.
+Go to test/controllers and write test `should not create category in not admin`.
+In the first run it was failing:
+````
+"Category.count" didn't change by 0.
+Expected: 3
+  Actual: 4
+````
+**This is because we have no restrictions yet.**
+For that purpose, we'll define `require_admin` in Category controller.
+After that, multiple errors will occur, like `CreateCategoryTest#test_get_new_category_form_and_create_category`. 
+And `test_get_new_category_form_and_reject_invalid_category_submission` and `test_should_get_new`. 
+`test_should_create_category_if_admin` too.
+
+**The reason for that is our admin restriction in controller. We need to rewrite some tests and simulate a login user there**.
+
+1) Create an admin user in Category controller test.
+2) We'll also define `login_as` func in test helper to make it available everywhere. 
+3) And we'll add `login_as` func wherever we need to. 
+
+----------------
+<h3> Many to many association intro </h3>
+
+**For many-to-many association between article and a category, we'll create a third table that tracks
+relationship between first two tables and that contains their primary keys.** 
+
+We'll make a new migration file: `create_article_migration` and a model `article_category`.
+We'll also add `has_many` and `has_many, through: ` fields on Article model and Category model.
+
+**Since our association is created, we can go to rails console and write `lastArticle.categories` or `lastCategory.articles`.
+It will be empty object in the first run.**
+
+**We'll modify that in the rails console: `lastCategory.articles << lastArticle`**.
+
+
+
+
+
+
+
 
 
 

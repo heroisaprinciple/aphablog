@@ -1,16 +1,27 @@
-<div class="alert text-center m-4 pb-3">
-  <% @category.each do |category| %>
-    <p> <%= category.name %> category </p>
-  <% end %>
+<h1 class="h1--index text-info p-4">The full listing of categories: </h1>
+
+<div class="categories--table p-4">
+  <table style="width:100%">
+    <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @category.each do |category| %>
+      <tr>
+        <td> <%= link_to category.name, category_path(category.id) %></td>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="pt-3">
+    <%= link_to 'Create a new category', new_category_path %>
+  </div>
+
 </div>
 
-<div class="alert text-center m-4 pb-3">
-  <% if @category.first.errors.any? %>
-    <h1 class="errs_heading"> The following errors prevented us from saving data in DB: </h1>
-    <ul>
-      <% @category.first.errors.full_messages.each do |err| %>
-        <li> <%= err %> </li>
-      <% end %>
-    </ul>
-  <% end %>
+<div class="gifcat--img">
+  <img src="https://imgs.search.brave.com/HIOP_ok7rEDLaGTxvz6_6HRfkmXvHI9RTxMWIkzecHs/rs:fit:370:300:1/g:ce/aHR0cHM6Ly8zLmJw/LmJsb2dzcG90LmNv/bS8tZm0wQ2c1V0Zz/eTgvV0Y2WVdKeVV2/dUkvQUFBQUFBQUZv/ZjAvblJzcTNKTGZ3/TndQcVpBMjBmUERG/QUg4YU9VRkxIN25B/Q0xjQi9zMTYwMC9B/VzM1NjIzNF8wNC5n/aWY.gif"/>
 </div>

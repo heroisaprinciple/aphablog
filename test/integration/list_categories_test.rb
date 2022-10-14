@@ -10,6 +10,7 @@ class ListCategoriesTest < ActionDispatch::IntegrationTest
     get '/categories'
     # category.name text will show up
     # we are going to look for links that contain these categories
+    #
     assert_select "a[href=?]", category_path(@category), text: @category.name
   end
 end

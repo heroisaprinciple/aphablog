@@ -15,7 +15,7 @@ end
 
 class ActionDispatch::IntegrationTest
   def login_as(user)
-    post login_url, params: { email: user.email, password: 'secret' }
+    post login_url, params: { email: user.email, password: '12345678' }
   end
 
   def logout

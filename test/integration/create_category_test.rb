@@ -1,6 +1,11 @@
 require "test_helper"
 
 class CreateCategoryTest < ActionDispatch::IntegrationTest
+  setup do
+    @admin_user = User.create(username: 'whiteblinders', email: 'valcat552@gmail.com', password: '12345678', admin: true)
+    login_as(@admin_user)
+  end
+
    test "get new category form and create category" do
      get '/categories/new'
      assert_response :success
@@ -24,10 +29,9 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
        post categories_path, params: { category: { name: ' '}}
      end
 
-     # looking for word 'errors in h1'
+     # looking for word 'errors in'
      assert_match 'errors', response.body
      # testing for existence of html elements
-     assert_select 'div.alert', 'Categories#index'
-     assert_select 'h1.errs_heading', 'Categories#index'
+     assert_select 'div.k'
    end
 end
