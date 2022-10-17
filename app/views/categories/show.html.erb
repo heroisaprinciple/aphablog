@@ -2,3 +2,7 @@
   <h1 class="text-info"> <%= @category.name %>  category </h1>
 </div>
 
+<div class="text-center m-4 pb-3">
+  <p> <%= link_to 'Edit category', edit_category_path(@category) %> </p>
+  <p> <%= link_to 'Return to categories page', categories_path %> </p>
+</div>

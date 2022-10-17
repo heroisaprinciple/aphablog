@@ -1,0 +1,15 @@
+<div class="p-4">
+  <%= form_with model: @category, method: :patch do |form|  %>
+    <p>
+      <%= form.label :name %> <br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+      <%= form.submit "enter", class: 'btn btn-outline-dark' %>
+    </p>
+  <% end %>
+
+<%= link_to 'Return to the articles page', articles_path %>
+
+</div>

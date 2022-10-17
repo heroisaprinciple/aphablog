@@ -637,7 +637,40 @@ We'll also add `has_many` and `has_many, through: ` fields on Article model and 
 **Since our association is created, we can go to rails console and write `lastArticle.categories` or `lastCategory.articles`.
 It will be empty object in the first run.**
 
-**We'll modify that in the rails console: `lastCategory.articles << lastArticle`**.
+**We'll modify that in the rails console: `lastCategory.articles << lastArticle`** and use 
+`lastCategory.articles.count`.
+
+-----------
+<h3> Add categories to articles from the browser </h3>
+
+We will make user choose multiple categories from the form. 
+Let's try to do this in the console first: ` article = Article.new(title: "bought vitamins and went to gym", description: "i love buying vitamins, then i go to the gym", user_id: 2
+6, category_ids: [1, 4])`.
+**Only _ids. We can't write _id as rails won't see that as an argument. This is how many-to-many associations work.**
+
+**Notice that we won't see category_id in articles when `Article.all`. The same is with categories. 
+To see our association, we need to use `ArticleCategory.all`:**
+```
+    [#<ArticleCategory:0x000001a1f3e9cdc0 id: 1, article_id: 35, category_id: 8>,
+    #<ArticleCategory:0x000001a1f3e9cca8 id: 2, article_id: 36, category_id: 1>,
+    #<ArticleCategory:0x000001a1f3e9cbe0 id: 3, article_id: 36, category_id: 4>]
+```
+**or `article.categories` as we did before.**
+
+We'll also need to whitelist category_ids as a parameter to permit: `category_ids: []`. Go to articles controller to
+`articleParams`.
+
+We will add select box to choose the category. We will use `form.collection_select` in our html file.
+
+-------------
+We will update article views to display categories. To make this we will render every article.categories element in
+articles/show view. After that we'll create a partial _category and code some things there. 
+
+
+
+
+
+
 
 
 

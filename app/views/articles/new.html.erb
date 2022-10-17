@@ -11,21 +11,30 @@
 <% end %>
 
 <!-- the form scope is a an article model, url and method included-->
-<%= form_with scope: :article, url: '/articles', method: :post, data: { turbo: false } do |form| %>
+<div class="pt-4">
+  <%= form_with scope: :article, url: '/articles', method: :post, data: { turbo: false } do |form| %>
 
-  <p>
-    <%= form.label :title %> <br>
-    <%= form.text_field :title %>
-  </p>
+    <div class="p-2">
+      <%= form.label :title %> <br>
+      <%= form.text_field :title %>
+    </div>
 
-  <p>
-    <%= form.label :description %> <br>
-    <%= form.text_area :description %>
-  </p>
+    <div class="p-2">
+      <%= form.label :description %> <br>
+      <%= form.text_area :description %>
+    </div>
 
-  <p>
-    <%= form.submit "enter" %>
-  </p>
+    <div class="p-2">
+      <%= form.label :category %> <br>
+      <%= form.collection_select :category_ids, Category.order(:name), :id, :name,
+                                 {prompt: "Please Select a Category (can be empty)"}, {multiple: true}
+                                   %>
+    </div>
+
+    <div class="p-2">
+      <%= form.submit "enter" %>
+    </div>
 
 
-<% end %>
+  <% end %>
+</div>

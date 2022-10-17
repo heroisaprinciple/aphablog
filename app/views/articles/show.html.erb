@@ -1,8 +1,15 @@
 <div class="p-4">
   <h1 class="showing-details">Showing details</h1>
 
-  <p class="title">Title: <%= @article.title %></p>
-  <p class="description">Description: <%= @article.description %></p>
+  <div class="title">Title: <%= @article.title %></div>
+
+  <div>
+    <% if @article.categories.any? %>
+      <%= render @article.categories %>
+    <% end %>
+  </div>
+
+  <div class="description">Description: <%= @article.description %></div>
 
   <p>
     <% if logged_in? && (@article.user_id == current_user.id || current_user.admin?) %>
